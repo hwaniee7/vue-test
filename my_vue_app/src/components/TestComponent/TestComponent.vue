@@ -11,22 +11,73 @@
             <div id="date2">
                 {{ date2 }}
             </div>
+          <br/>
             <div id="data">
-                {{ data }}
+                data : {{ data }}
             </div>
-            <div class="plusMinusEvent">
+          <br/>
+            <div class="plusMinusEvent" style="border: solid 1px cornflowerblue">
                 <p> count : {{ counter }} </p>
                 <div class="btnWrapper">
                     <button class="btn" @click="plus"> + </button>
                     <button class="btn" @click="minus"> - </button>
                 </div>
             </div>
-            <div>
-                {{ data2 }}
-                <button @click="data2++"> + </button>
-                <button @click="data2--"> + </button>
+          <br/>
+            <div class="plusMinusEvent" style="border: solid 1px cornflowerblue">
+                <p> count : {{ data2 }} </p>
+                <div class="btnWrapper">
+                  <button class="btn" @click="data2++"> + </button>
+                  <button class="btn" @click="data2--"> + </button>
+                </div>
             </div>
-            
+            <br/>
+          <div v-bind="human">
+            <h2> 주소록 1 (v-bind object)</h2>
+            <table>
+              <thead>
+                <tr>
+                  <td>번호</td>
+                  <td>이름</td>
+                  <td>나이</td>
+                  <td>주소</td>
+                  <td>연락처</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ human.id }}</td>
+                  <td>{{ human.name }}</td>
+                  <td>{{ human.age }}</td>
+                  <td>{{ human.addr }}</td>
+                  <td>{{ human.phone }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <h2> 주소록 2 (배열, v-for) </h2>
+            <table>
+              <thead>
+              <tr>
+                <td>번호</td>
+                <td>이름</td>
+                <td>나이</td>
+                <td>주소</td>
+                <td>연락처</td>
+              </tr>
+              </thead>
+              <tbody>
+                 <tr v-for="human in humanArray" :key="human.id">
+                    <td>{{ human.id }}</td>
+                    <td>{{ human.name }}</td>
+                    <td>{{ human.age }}</td>
+                    <td>{{ human.addr }}</td>
+                    <td>{{ human.phone }}</td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
     </div>
    
@@ -58,11 +109,47 @@
             return { data, data2, date, counter, plus, minus }
         },
         // Options API
-        data() {    
-            return {
-                date2: Date().toString()
+        data() {
+          const human = {
+            id: 1,
+            name: '홍길동',
+            age: 25,
+            addr: '서울시',
+            phone: '01012345678',
+
+          }
+          const humanArray = [
+            {
+              id: 1,
+              name: '홍길동',
+              age: 25,
+              addr: '서울시',
+              phone: '01012345678',
+
+            },
+            {
+              id: 2,
+              name: '이순신',
+              age: 30,
+              addr: '서울시',
+              phone: '01022224444',
+            },
+            {
+              id: 3,
+              name: '강감찬',
+              age: 31,
+              addr: '서울시',
+              phone: '01033334444',
             }
+
+          ]
+          return {
+            date2: Date().toString(),
+            human, humanArray
+          }
         },
+
+
        
     }
 </script>
@@ -70,6 +157,7 @@
     .container {
         display: flex;
         flex-direction: column;
+      border: solid 1px #f68383;
     }
     .date_data_container {
         display: flex;
